@@ -1,0 +1,15 @@
+FROM postgres:latest
+ENV POSTGRES_PASSWORD docker
+ENV POSTGRES_DB world
+
+# Set the working directory
+WORKDIR /var/lib/postgresql
+
+# Copy the initialization script to the container
+COPY init.sql /docker-entrypoint-initdb.d/
+
+# Expose the default port for postgres
+EXPOSE 5432
+
+# Run the initialization script when the container starts
+CMD ["postgres"]
