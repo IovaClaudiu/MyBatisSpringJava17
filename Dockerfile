@@ -1,6 +1,8 @@
 FROM postgres:latest
-ENV POSTGRES_PASSWORD docker
-ENV POSTGRES_DB world
+
+ENV POSTGRES_USER mybatis
+ENV POSTGRES_PASSWORD iova
+ENV POSTGRES_DB mybatis
 
 # Set the working directory
 WORKDIR /var/lib/postgresql

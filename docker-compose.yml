@@ -1,0 +1,10 @@
+version: '3'
+services:
+  db:
+    image: my-postgres:latest
+    environment:
+      - POSTGRES_USER=mybatis
+      - POSTGRES_PASSWORD=iova
+      - POSTGRES_DB=mybatis
+    ports:
+      - "5432:5432"
