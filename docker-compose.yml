@@ -6,7 +6,12 @@ services:
       - POSTGRES_USER=mybatis
       - POSTGRES_PASSWORD=iova
       - POSTGRES_DB=mybatis
+      - PGDATA=/var/lib/postgresql/data
     ports:
       - "5432:5432"
     volumes:
+      - ./dbdata/vol:/var/lib/postgresql/data:rw
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+volumes:
+  vol:
+    driver: local
