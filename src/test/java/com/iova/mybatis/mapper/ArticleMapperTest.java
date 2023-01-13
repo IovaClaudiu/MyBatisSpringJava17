@@ -1,6 +1,6 @@
 package com.iova.mybatis.mapper;
 
-import com.iova.mybatis.config.PersistenceConfig;
+import com.iova.mybatis.config.PersistencePostgresqlConfig;
 import com.iova.mybatis.dto.Article;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Order;
@@ -8,6 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.util.List;
@@ -16,7 +17,9 @@ import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.fail;
 
 @ExtendWith(SpringExtension.class)
-@ContextConfiguration(classes = PersistenceConfig.class)
+//@ContextConfiguration(classes = PersistenceH2Config.class)
+@ContextConfiguration(classes = PersistencePostgresqlConfig.class)
+@Sql(value = "classpath:reset.sql", executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 class ArticleMapperTest {
 
     @Autowired
