@@ -1,15 +1,8 @@
 # MyBatis Application
 
-Play ground for mybatis with SpringBoot and Java 17
+Play ground for mybatis with SpringBoot and Java 17.
+The postgresql db is running in a docker container.
 
-## Build Docker file
+## Start the postgresql docker container using docker compose
 
-docker build -t my-postgres:latest
-
-## Start the postgres docker container
-
-docker run -itd -e POSTGRES_USER=mybatis -e POSTGRES_PASSWORD=iova -p 5432:5432 -v my-postgres:latest
-
-## Start the container using docker-compose
-
-docker-compose up -d
+`docker compose up -d`
