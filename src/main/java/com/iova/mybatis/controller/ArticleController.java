@@ -2,6 +2,7 @@ package com.iova.mybatis.controller;
 
 import com.iova.mybatis.dto.Article;
 import com.iova.mybatis.service.ArticleService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -30,14 +31,14 @@ public class ArticleController {
     }
 
     @PostMapping(path = ARTICLES_ROUTE)
-    public ResponseEntity<Article> createArticle(@RequestBody final Article article) {
+    public ResponseEntity<Article> createArticle(@RequestBody @Valid final Article article) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
                 .body(articleService.createArticle(article));
     }
 
     @PutMapping(path = ARTICLES_ROUTE)
-    public ResponseEntity<Article> updateArticle(@RequestBody final Article article) {
+    public ResponseEntity<Article> updateArticle(@RequestBody @Valid final Article article) {
         return ResponseEntity.ok(articleService.updateArticle(article));
     }
 

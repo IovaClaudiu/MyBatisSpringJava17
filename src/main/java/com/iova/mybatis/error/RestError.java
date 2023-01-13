@@ -1,4 +1,4 @@
-package com.iova.mybatis.exception;
+package com.iova.mybatis.error;
 
 import lombok.Builder;
 

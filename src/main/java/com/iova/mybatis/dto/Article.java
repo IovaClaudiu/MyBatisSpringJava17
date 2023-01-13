@@ -1,5 +1,6 @@
 package com.iova.mybatis.dto;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 import lombok.Data;
 
@@ -7,8 +8,11 @@ import lombok.Data;
 @Builder
 public class Article {
 
+    @NotNull
     private Long id;
+    @NotNull
     private String title;
+    @NotNull
     private String author;
 
 
