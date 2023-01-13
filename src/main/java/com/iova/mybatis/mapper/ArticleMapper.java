@@ -4,12 +4,13 @@ import com.iova.mybatis.dto.Article;
 import org.apache.ibatis.annotations.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @Mapper
 public interface ArticleMapper {
 
     @Select("SELECT * FROM ARTICLES WHERE id = #{id}")
-    Article getArticle(@Param("id") Long id);
+    Optional<Article> getArticle(@Param("id") Long id);
 
     @Select("SELECT * FROM ARTICLES")
     List<Article> getArticles();

@@ -29,7 +29,7 @@ class ArticleMapperTest {
     @DisplayName("Get the first and the only article from h2 using mybatis")
     @Order(1)
     public void getArticle() {
-        Article article = articleMapper.getArticle(1L);
+        final Article article = articleMapper.getArticle(1L).orElseGet(() -> fail("No article with id 1 was found"));
 
         assertThat(article).isNotNull();
         assertThat(article.getAuthor()).isEqualTo("Iova");
@@ -41,7 +41,7 @@ class ArticleMapperTest {
     @DisplayName("Get the articles from h2 using mybatis")
     @Order(2)
     public void getArticles() {
-        List<Article> articles = articleMapper.getArticles();
+        final List<Article> articles = articleMapper.getArticles();
 
         assertThat(articles).isNotNull();
         assertThat(articles).hasSize(1);
@@ -51,14 +51,15 @@ class ArticleMapperTest {
     @DisplayName("Insert a new article in h2 using mybatis")
     @Order(3)
     public void insertArticle() {
-        Article article = new Article();
-        article.setId(2L);
-        article.setTitle("My Title");
-        article.setAuthor("Iova Claudiu");
+        final Article article = Article.builder()
+                .id(2L)
+                .title("My Title")
+                .author("Iova Claudiu")
+                .build();
 
         articleMapper.insertArticle(article);
 
-        List<Article> articles = articleMapper.getArticles();
+        final List<Article> articles = articleMapper.getArticles();
         assertThat(articles).hasSize(2);
 
         articles.stream()
@@ -77,7 +78,7 @@ class ArticleMapperTest {
     public void deleteArticle() {
         articleMapper.deleteArticle(2L);
 
-        List<Article> articles = articleMapper.getArticles();
+        final List<Article> articles = articleMapper.getArticles();
         assertThat(articles).hasSize(1);
     }
 
@@ -85,14 +86,15 @@ class ArticleMapperTest {
     @Order(5)
     @DisplayName("Update the first entity from the h2 database, using mybatis")
     public void updateArticle() {
-        Article updateArticle = new Article();
-        updateArticle.setId(1L);
-        updateArticle.setAuthor("New Author");
-        updateArticle.setTitle("New Title");
+        final Article updateArticle = Article.builder()
+                .id(1L)
+                .author("New Author")
+                .title("New Title")
+                .build();
 
         articleMapper.updateArticle(updateArticle);
 
-        Article article = articleMapper.getArticle(1L);
+        final Article article = articleMapper.getArticle(1L).orElseGet(() -> fail("No article with id 1 was found"));
 
         assertThat(article).isNotNull();
         assertThat(article.getAuthor()).isEqualTo("New Author");
