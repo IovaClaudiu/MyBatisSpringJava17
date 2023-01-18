@@ -8,6 +8,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -52,9 +53,16 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         return handleExceptionInternal(ex, apiErrors, headers, apiErrors.status(), request);
     }
 
+    @ExceptionHandler(BadCredentialsException.class)
+    public ResponseEntity<Object> handle(BadCredentialsException ex) {
+        log.error("Error occurred: ", ex);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body("Bad Credentials!");
+    }
+
     @ExceptionHandler(Exception.class)
     public ResponseEntity<Object> handle(Exception ex) {
-        log.error("Error occurred: ", ex.getCause());
+        log.error("Error occurred: ", ex);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                 .body("Something went wrong, please contact and administrator!");
     }

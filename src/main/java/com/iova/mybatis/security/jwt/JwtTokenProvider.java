@@ -12,7 +12,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Component;
 
 import java.util.Date;
-import java.util.List;
+import java.util.Set;
 
 @Component
 @RequiredArgsConstructor
@@ -20,11 +20,11 @@ public class JwtTokenProvider {
     private static final String AUTHORIZATION_HEADER = "Authorization";
     private static final String BEARER_HEADER = "Bearer ";
     private static final long VALIDITY_IN_MILLISECONDS = 3600000;
-    private static final String SECRET_KEY = "secret";
+    private static final String SECRET_KEY = "iovaclaudiusecretkeysuitableforHMAC-SHASpecification";
 
     private final UserDetailsService userDetailsService;
 
-    public String createToken(String username, List<String> roles) {
+    public String createToken(String username, Set<String> roles) {
         Claims claims = Jwts.claims().setSubject(username);
         claims.put("roles", roles);
         Date now = new Date();
@@ -39,7 +39,7 @@ public class JwtTokenProvider {
 
     public Authentication getAuthentication(String token) {
         UserDetails userDetails = this.userDetailsService.loadUserByUsername(getUsername(token));
-        return new UsernamePasswordAuthenticationToken(userDetails, "", userDetails.getAuthorities());
+        return new UsernamePasswordAuthenticationToken(userDetails.getUsername(), userDetails.getPassword(), userDetails.getAuthorities());
     }
 
     public String getUsername(String token) {
@@ -66,7 +66,7 @@ public class JwtTokenProvider {
                     .setSigningKey(Keys.hmacShaKeyFor(SECRET_KEY.getBytes()))
                     .build()
                     .parseClaimsJws(token);
-            
+
             return !claims.getBody().getExpiration().before(new Date());
         } catch (JwtException | IllegalArgumentException e) {
             throw new InvalidJwtAuthenticationException("Expired or invalid JWT token");

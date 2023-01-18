@@ -6,7 +6,7 @@ import lombok.Getter;
 
 @Entity
 @Getter
-@Table(name = "role")
+@Table(name = "roles")
 public class RoleEntity {
 
     @Id
@@ -17,5 +17,6 @@ public class RoleEntity {
     @JsonBackReference
     public UserEntity user;
 
-    public UserPermission permission = UserPermission.User;
+    @Enumerated(EnumType.STRING)
+    public UserPermission permission;
 }

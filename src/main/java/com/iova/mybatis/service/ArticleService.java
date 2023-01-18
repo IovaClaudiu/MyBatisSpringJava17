@@ -1,6 +1,6 @@
 package com.iova.mybatis.service;
 
-import com.iova.mybatis.dto.Article;
+import com.iova.mybatis.dto.ArticleDto;
 import com.iova.mybatis.exception.BusinessException;
 import com.iova.mybatis.mapper.ArticleMapper;
 import lombok.RequiredArgsConstructor;
@@ -16,23 +16,23 @@ public class ArticleService {
 
     private final ArticleMapper articleMapper;
 
-    public List<Article> getArticles() {
+    public List<ArticleDto> getArticles() {
         return articleMapper.getArticles();
     }
 
-    public Article getArticle(final Long id) {
-        final Optional<Article> article = articleMapper.getArticle(id);
+    public ArticleDto getArticle(final Long id) {
+        final Optional<ArticleDto> article = articleMapper.getArticle(id);
         return article.orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, "Failed to find an article with id: " + id));
     }
 
-    public Article createArticle(final Article article) {
+    public ArticleDto createArticle(final ArticleDto article) {
         articleMapper.insertArticle(article);
         return getArticle(article.getId());
     }
 
-    public Article updateArticle(final Article article) {
-        final Article result = getArticle(article.getId());
-        final Article updateArticle = Article.builder()
+    public ArticleDto updateArticle(final ArticleDto article) {
+        final ArticleDto result = getArticle(article.getId());
+        final ArticleDto updateArticle = ArticleDto.builder()
                 .id(result.getId())
                 .title(article.getTitle())
                 .author(article.getAuthor())
