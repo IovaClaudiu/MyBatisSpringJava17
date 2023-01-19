@@ -1,6 +1,9 @@
 package com.iova.mybatis.controller;
 
 import com.iova.mybatis.dto.ArticleDto;
+import com.iova.mybatis.security.role.IsAdmin;
+import com.iova.mybatis.security.role.IsUser;
+import com.iova.mybatis.security.role.IsViewer;
 import com.iova.mybatis.service.ArticleService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -21,16 +24,19 @@ public class ArticleController {
     private final ArticleService articleService;
 
     @GetMapping(path = ARTICLES_ROUTE)
+    @IsViewer
     public ResponseEntity<List<ArticleDto>> getArticles() {
         return ResponseEntity.ok(articleService.getArticles());
     }
 
     @GetMapping(path = ARTICLE_ROUTE)
+    @IsViewer
     public ResponseEntity<ArticleDto> getArticle(@PathVariable final Long id) {
         return ResponseEntity.ok(articleService.getArticle(id));
     }
 
     @PostMapping(path = ARTICLES_ROUTE)
+    @IsAdmin
     public ResponseEntity<ArticleDto> createArticle(@RequestBody @Valid final ArticleDto article) {
         return ResponseEntity
                 .status(HttpStatus.CREATED)
@@ -38,11 +44,13 @@ public class ArticleController {
     }
 
     @PutMapping(path = ARTICLES_ROUTE)
+    @IsUser
     public ResponseEntity<ArticleDto> updateArticle(@RequestBody @Valid final ArticleDto article) {
         return ResponseEntity.ok(articleService.updateArticle(article));
     }
 
     @DeleteMapping(path = ARTICLE_ROUTE)
+    @IsUser
     public ResponseEntity<?> deleteArticle(@PathVariable final Long id) {
         articleService.deleteArticle(id);
         return ResponseEntity.noContent().build();

@@ -19,11 +19,21 @@ CREATE TABLE IF NOT EXISTS USERS
     description        VARCHAR(100),
     enabled            bool,
     password           VARCHAR(100),
-    legacy_api_key     VARCHAR(100) UNIQUE
+    legacy_api_key     VARCHAR(100)
 );
 
 INSERT INTO USERS
-VALUES (DEFAULT, current_timestamp, current_timestamp, 'admin', 'Claudiu', 'Iova', 'admin user', true,
+VALUES (DEFAULT, current_timestamp, current_timestamp, 'admin', 'admin', 'admin', 'admin user', true,
+        '$2a$12$cpLz6YRHfrnO/QVWP0jtCuPiw2klPy4BKNP1n3GCzei0oxHd8xhMW',
+        '');
+
+INSERT INTO USERS
+VALUES (DEFAULT, current_timestamp, current_timestamp, 'user', 'user', 'user', 'user user', true,
+        '$2a$12$cpLz6YRHfrnO/QVWP0jtCuPiw2klPy4BKNP1n3GCzei0oxHd8xhMW',
+        '');
+
+INSERT INTO USERS
+VALUES (DEFAULT, current_timestamp, current_timestamp, 'viewer', 'viewer', 'viewer', 'viewer user', true,
         '$2a$12$cpLz6YRHfrnO/QVWP0jtCuPiw2klPy4BKNP1n3GCzei0oxHd8xhMW',
         '');
 
@@ -39,7 +49,7 @@ INSERT INTO ROLES
 VALUES (DEFAULT, 'ADMIN', 1);
 
 INSERT INTO ROLES
-VALUES (DEFAULT, 'USER', 1);
+VALUES (DEFAULT, 'USER', 2);
 
 INSERT INTO ROLES
-VALUES (DEFAULT, 'ANYONE', 1);
+VALUES (DEFAULT, 'VIEWER', 3);

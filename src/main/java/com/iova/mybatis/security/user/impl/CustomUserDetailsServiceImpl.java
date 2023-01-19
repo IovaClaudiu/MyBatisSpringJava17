@@ -1,6 +1,5 @@
 package com.iova.mybatis.security.user.impl;
 
-import com.iova.mybatis.security.user.CustomUserDetails;
 import com.iova.mybatis.security.user.CustomUserDetailsService;
 import com.iova.mybatis.security.user.entity.UserEntity;
 import com.iova.mybatis.security.user.repository.UserRepository;
@@ -15,10 +14,10 @@ public class CustomUserDetailsServiceImpl implements CustomUserDetailsService {
     private final UserRepository userRepository;
 
     @Override
-    public CustomUserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+    public CustomUserDetailsImpl loadUserByUsername(String username) throws UsernameNotFoundException {
         UserEntity user = userRepository.findByUsernameAndEnabledIsTrue(username)
                 .orElseThrow(() -> new UsernameNotFoundException("User " + username + " does not exist"));
-        return new CustomUserDetails(user);
+        return new CustomUserDetailsImpl(user);
     }
 
 }

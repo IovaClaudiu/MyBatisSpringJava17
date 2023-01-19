@@ -23,7 +23,6 @@ import static com.iova.mybatis.config.Routes.LOGIN_ROUTE;
 @RestController
 @RequestMapping("/api/v1")
 @RequiredArgsConstructor
-
 public class LoginController {
 
     private final AuthenticationManager authenticationManager;
@@ -33,12 +32,18 @@ public class LoginController {
     public ResponseEntity<LoginResponseDto> login(@RequestBody UserDto user) {
         try {
             Authentication authenticate = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword()));
-            String token = jwtTokenProvider.createToken(user.getUsername(), authenticate.getAuthorities().stream().map(GrantedAuthority::getAuthority).collect(Collectors.toUnmodifiableSet()));
+            String token = jwtTokenProvider.createToken(
+                    user.getUsername(), authenticate.getAuthorities()
+                            .stream()
+                            .map(GrantedAuthority::getAuthority)
+                            .collect(Collectors.toUnmodifiableSet())
+            );
 
             return ResponseEntity.ok(LoginResponseDto.builder()
                     .username(user.getUsername())
                     .token(token)
                     .build());
+            
         } catch (AuthenticationException exception) {
             throw new BadCredentialsException("Invalid Credentials", exception);
         }

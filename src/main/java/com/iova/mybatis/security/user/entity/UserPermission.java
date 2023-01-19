@@ -1,7 +1,14 @@
 package com.iova.mybatis.security.user.entity;
 
-public enum UserPermission {
+import org.springframework.security.core.GrantedAuthority;
+
+public enum UserPermission implements GrantedAuthority {
     ADMIN,
     USER,
-    ANYONE
+    VIEWER;
+
+    @Override
+    public String getAuthority() {
+        return "ROLE_" + this.name();
+    }
 }

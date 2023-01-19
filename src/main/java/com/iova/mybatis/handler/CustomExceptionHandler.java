@@ -3,11 +3,13 @@ package com.iova.mybatis.handler;
 import com.iova.mybatis.error.ApiError;
 import com.iova.mybatis.error.RestError;
 import com.iova.mybatis.exception.BusinessException;
+import com.iova.mybatis.exception.InvalidJwtAuthenticationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.validation.FieldError;
 import org.springframework.validation.ObjectError;
@@ -58,6 +60,20 @@ public class CustomExceptionHandler extends ResponseEntityExceptionHandler {
         log.error("Error occurred: ", ex);
         return ResponseEntity.status(HttpStatus.FORBIDDEN)
                 .body("Bad Credentials!");
+    }
+
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<Object> handle(AccessDeniedException ex) {
+        log.error("Error occurred: ", ex);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(ex.getMessage());
+    }
+
+    @ExceptionHandler(InvalidJwtAuthenticationException.class)
+    public ResponseEntity<Object> handle(InvalidJwtAuthenticationException ex) {
+        log.error("Error occurred: ", ex);
+        return ResponseEntity.status(HttpStatus.FORBIDDEN)
+                .body(ex.getMessage());
     }
 
     @ExceptionHandler(Exception.class)
