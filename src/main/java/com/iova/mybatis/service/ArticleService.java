@@ -1,8 +1,9 @@
 package com.iova.mybatis.service;
 
 import com.iova.mybatis.dto.ArticleDto;
+import com.iova.mybatis.entity.ArticleEntity;
 import com.iova.mybatis.exception.BusinessException;
-import com.iova.mybatis.mapper.ArticleMapper;
+import com.iova.mybatis.mapper.MyBatisMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
@@ -14,7 +15,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class ArticleService {
 
-    private final ArticleMapper articleMapper;
+    private final MyBatisMapper articleMapper;
 
     public List<ArticleDto> getArticles() {
         return articleMapper.getArticles();
@@ -25,20 +26,19 @@ public class ArticleService {
         return article.orElseThrow(() -> new BusinessException(HttpStatus.NOT_FOUND, "Failed to find an article with id: " + id));
     }
 
-    public ArticleDto createArticle(final ArticleDto article) {
+    public ArticleDto createArticle(final ArticleEntity article) {
         articleMapper.insertArticle(article);
         return getArticle(article.getId());
     }
 
-    public ArticleDto updateArticle(final ArticleDto article) {
+    public void updateArticle(final ArticleEntity article) {
         final ArticleDto result = getArticle(article.getId());
-        final ArticleDto updateArticle = ArticleDto.builder()
-                .id(result.getId())
-                .title(article.getTitle())
-                .author(article.getAuthor())
-                .build();
-        articleMapper.updateArticle(updateArticle);
-        return updateArticle;
+        final ArticleEntity updated = new ArticleEntity();
+        updated.setId(result.getId());
+        updated.setTitle(article.getTitle() != null ? article.getTitle() : result.getTitle());
+        updated.setDescription(article.getDescription() != null ? article.getDescription() : result.getDescription());
+        updated.setAuthorId(article.getAuthorId() != null ? article.getAuthorId() : result.getAuthor().getId());
+        articleMapper.updateArticle(updated);
     }
 
     public void deleteArticle(final Long id) {

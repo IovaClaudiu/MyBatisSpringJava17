@@ -1,12 +1,29 @@
+CREATE TABLE IF NOT EXISTS AUTHORS
+(
+    id         SERIAL PRIMARY KEY,
+    first_name VARCHAR(50) NOT NULL,
+    last_name  VARCHAR(50) NOT NULL,
+    age        INT         NOT NULL,
+    sex        VARCHAR(10) NOT NULL
+);
+
+INSERT INTO AUTHORS
+VALUES (DEFAULT, 'Claudiu', 'Iova', 28, 'Male');
+
 CREATE TABLE IF NOT EXISTS ARTICLES
 (
-    id     INTEGER PRIMARY KEY,
-    title  VARCHAR(100) NOT NULL,
-    author VARCHAR(100) NOT NULL
+    id          SERIAL PRIMARY KEY,
+    title       VARCHAR(100) NOT NULL,
+    description VARCHAR(200) NOT NULL,
+    author_id   INT          NOT NULL,
+    CONSTRAINT fk_authors FOREIGN KEY (author_id) REFERENCES AUTHORS (id)
 );
 
 INSERT INTO ARTICLES
-VALUES (1, 'MyBatis Example', 'Iova');
+VALUES (DEFAULT, 'MyBatis Example', 'Small description', 1);
+
+INSERT INTO ARTICLES
+VALUES (DEFAULT, 'Another Example', 'Another Small description', 1);
 
 CREATE TABLE IF NOT EXISTS USERS
 (
