@@ -17,6 +17,12 @@ The project api is exposed under the following route:
 Please check the postman collection created for this application located in `postman` folder.
 The collection contains documentation and everything you need to know in order to use the API.
 
+### OpenApi Documentation
+
+Also, there is an OpenApi documentation for the API:
+
+`http://<host>:<port>/swagger-ui/index.html`
+
 ### INFO
 
 On windows, using WSL2 and Docker, the `init.sql` script is not
