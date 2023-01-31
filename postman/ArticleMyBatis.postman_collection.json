@@ -26,12 +26,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/login",
+							"raw": "http://localhost:{{port}}/api/v1/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"v1",
@@ -60,12 +60,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/login",
+							"raw": "http://localhost:{{port}}/api/v1/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"v1",
@@ -94,12 +94,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/login",
+							"raw": "http://localhost:{{port}}/api/v1/login",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"v1",
@@ -143,12 +143,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/articles",
+							"raw": "http://localhost:{{port}}/api/v1/articles",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"v1",
@@ -187,12 +187,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/articles/1",
+							"raw": "http://localhost:{{port}}/api/v1/articles/1",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"v1",
@@ -229,12 +229,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/articles/2",
+							"raw": "http://localhost:{{port}}/api/v1/articles/2",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"v1",
@@ -271,12 +271,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/articles",
+							"raw": "http://localhost:{{port}}/api/v1/articles",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"v1",
@@ -312,12 +312,12 @@
 							}
 						},
 						"url": {
-							"raw": "http://localhost:8080/api/v1/articles",
+							"raw": "http://localhost:{{port}}/api/v1/articles",
 							"protocol": "http",
 							"host": [
 								"localhost"
 							],
-							"port": "8080",
+							"port": "{{port}}",
 							"path": [
 								"api",
 								"v1",

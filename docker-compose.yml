@@ -1,6 +1,8 @@
-version: '3.1'
+version: '2.1'
 services:
+
   postgres:
+    container_name: db
     image: postgres:latest
     environment:
       - POSTGRES_USER=mybatis
@@ -9,9 +11,27 @@ services:
       - PGDATA=/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - custom-network
     volumes:
       - ./dbdata/vol:/var/lib/postgresql/data:rw
       - ./init.sql:/docker-entrypoint-initdb.d/init.sql
-volumes:
-  vol:
-    driver: local
+
+  article-server:
+    container_name: article-server
+    build:
+      dockerfile: Dockerfile
+    environment:
+      - com.iova.mybatis.postgres.url=jdbc:postgresql://db:5432/postgres
+    depends_on:
+      postgres:
+        condition: service_started
+    image: article-server:latest
+    ports:
+      - "8888:8888"
+    networks:
+      - custom-network
+
+networks:
+  custom-network:
+    driver: bridge

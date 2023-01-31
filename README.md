@@ -10,7 +10,7 @@ The postgresql db is running in a docker container.
 ## Project API
 
 The project api is exposed under the following route:
-`localhost:8080/api/v1`
+`localhost:8888/api/v1`
 
 ### Postman Collection
 
@@ -36,4 +36,4 @@ If you are using WSL2 and Docker, by default the `chmod` will not work
 on windows, so you need to add a small configuration file `/etc/wsl.conf`.
 
 Please check this blog post for more info:
-`https://alessandrococco.com/2021/01/wsl-how-to-resolve-operation-not-permitted-error-on-cloning-a-git-repository`
+`https://askubuntu.com/questions/1115564/wsl-ubuntu-distro-how-to-solve-operation-not-permitted-on-cloning-repository`
